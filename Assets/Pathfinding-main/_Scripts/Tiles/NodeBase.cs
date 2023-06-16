@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,8 +7,8 @@ namespace _Scripts.Tiles
 {
     public abstract class NodeBase : MonoBehaviour
     {
-        [Header("References")] 
-        [SerializeField] private Color _obstacleColor;
+        [Header("References")] [SerializeField]
+        private Color _obstacleColor;
 
         [SerializeField] private Gradient _walkableColor;
         [SerializeField] protected SpriteRenderer _renderer;
@@ -21,30 +21,30 @@ namespace _Scripts.Tiles
         public bool Walkable { get; private set; }
         private Color _defaultColor;
 
-        public virtual void Init(bool walkable, ICoords coords)
+        public bool IsAvailable { get; set; } = true;
+
+        public virtual void Init(bool walkable, bool changeColor, ICoords coords)
         {
             Walkable = walkable;
 
-            _renderer.color = walkable ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _obstacleColor;
+            _renderer.color = walkable
+                ? changeColor ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _walkableColor.Evaluate(1f)
+                : _obstacleColor;
+            
             _defaultColor = _renderer.color;
+            
+            SetCoords(coords);
+        }
 
+        public virtual void SetCoords(ICoords coords)
+        {
             Coords = coords;
             transform.position = Coords.Pos;
         }
-
-        public static event Action<NodeBase> OnHoverTile;
-
         
-        //todo change this to ray interaction
-        protected virtual void OnMouseDown()
-        {
-            if (!Walkable)
-                return;
-            
-            OnHoverTile?.Invoke(this);
-        }
 
         #region Pathfinding
+
         public List<NodeBase> Neighbors { get; protected set; }
         public NodeBase Connection { get; private set; }
         public float G { get; private set; }

@@ -9,7 +9,7 @@ namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables {
         [SerializeField,Range(1,50)] private int _gridWidth = 16;
         [SerializeField,Range(1,50)] private int _gridDepth = 9;
         
-        public override Dictionary<Vector2, NodeBase> GenerateGrid() {
+        public override Dictionary<Vector2, NodeBase> GenerateGrid(Transform parent) {
             var tiles = new Dictionary<Vector2, NodeBase>();
             var grid = new GameObject {
                 name = "Grid"
@@ -18,7 +18,7 @@ namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables {
                 var rOffset = r >> 1;
                 for (var q = -rOffset; q < _gridWidth - rOffset; q++) {
                     var tile = Instantiate(nodeBasePrefab,grid.transform);
-                    tile.Init(DecideIfObstacle(), new HexCoords(q,r));
+                    tile.Init(DecideIfObstacle(), changeColor, new HexCoords(q,r));
                     tiles.Add(tile.Coords.Pos,tile);
                 }
             }

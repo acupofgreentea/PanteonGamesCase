@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Scripts.Tiles;
+using UnityEditor;
 using UnityEngine;
 
 namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables
@@ -10,13 +11,9 @@ namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables
         [SerializeField, Range(3, 50)] private int _gridWidth = 16;
         [SerializeField, Range(3, 50)] private int _gridHeight = 9;
 
-        public override Dictionary<Vector2, NodeBase> GenerateGrid()
+        public override Dictionary<Vector2, NodeBase> GenerateGrid(Transform parent)
         {
             var tiles = new Dictionary<Vector2, NodeBase>();
-            var grid = new GameObject
-            {
-                name = "Grid"
-            };
             
             float startX = -_gridWidth / 2f + 0.5f;
             float startY = -_gridHeight / 2f + 0.5f;
@@ -28,8 +25,8 @@ namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables
                     var xPos = startX + x;
                     var yPos = startY + y;
 
-                    var tile = Instantiate(nodeBasePrefab, grid.transform);
-                    tile.Init(DecideIfObstacle(), new SquareCoords { Pos = new Vector3(xPos, yPos) });
+                    NodeBase tile = (NodeBase)PrefabUtility.InstantiatePrefab(nodeBasePrefab, parent);
+                    tile.Init(DecideIfObstacle(), changeColor, new SquareCoords { Pos = new Vector3(xPos, yPos) });
                     tiles.Add(new Vector2(xPos, yPos), tile);
                 }
             }

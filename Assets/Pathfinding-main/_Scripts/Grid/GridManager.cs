@@ -7,46 +7,53 @@ namespace Tarodev_Pathfinding._Scripts.Grid
 {
     public class GridManager : MonoBehaviour
     {
-        public static GridManager Instance;
-
         [SerializeField] private ScriptableGrid scriptableGrid;
+        [SerializeField] private Transform gridParent;
 
-        public Dictionary<Vector2, NodeBase> Tiles { get; private set; }
+        private Dictionary<Vector2, NodeBase> tiles = new();
 
-        private NodeBase startNode, targetNode;
-
-        private void Awake()
-        {
-            if (Instance)
-            {
-                Destroy(this);
-                return;
-            }
-
-            Instance = this;
-        }
-        
         private void Start()
         {
-            Tiles = scriptableGrid.GenerateGrid();
+            tiles.Clear();
+            var nodes = gridParent.GetComponentsInChildren<NodeBase>();
+            if (nodes.Length == 0)
+            {
+                Debug.LogError("You should create grid first before running the game");
+            }
+            
+            foreach (NodeBase nodeBase in nodes)
+            {
+                nodeBase.SetCoords(new SquareCoords(){Pos = nodeBase.transform.position});
+                tiles.Add(nodeBase.Coords.Pos, nodeBase);
+            }
 
-            foreach (var tile in Tiles.Values) 
-                tile.CacheNeighbors();
-
-            NodeBase.OnHoverTile += OnTileHover;
+            GridSelectionManager.Instance.SetTiles(tiles);
         }
 
-        public NodeBase GetTileAtPosition(Vector2 pos) => Tiles.TryGetValue(pos, out var tile) ? tile : null;
-        
-        private void OnTileHover(NodeBase nodeBase)
+#if UNITY_EDITOR
+
+        [ContextMenu("Clear")]
+        public void ClearTiles()
         {
-            foreach (var t in Tiles.Values) 
-                t.RevertTile();
-
-            var path = Pathfinding.FindPath(startNode, targetNode);
+            tiles.Clear();
         }
-        
-        
-        private void OnDestroy() => NodeBase.OnHoverTile -= OnTileHover;
+
+        public void CreateGrid()
+        {
+            DestroyGrid();
+
+            scriptableGrid.GenerateGrid(gridParent);
+        }
+
+        public void DestroyGrid()
+        {
+            Debug.LogError("Destroying existing grid");
+
+            for (int i = this.gridParent.childCount; i > 0; --i)
+                DestroyImmediate(gridParent.GetChild(0).gameObject);
+
+            tiles.Clear();
+        }
+#endif
     }
 }
