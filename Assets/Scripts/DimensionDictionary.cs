@@ -15,4 +15,26 @@ public static class DimensionDictionary
     {
         return dimensionDic[dimension];
     }
+    
+    public static Vector2 GetPositionByDimension(this NodeBase nodeBase, PlaceableDimension dimension)
+    {
+        Vector2 nodePos = nodeBase.transform.position;
+        
+        switch (dimension)
+        {
+            case PlaceableDimension.OneByOne:
+                return nodePos;
+            
+            case PlaceableDimension.FourByFour:
+                nodePos += Vector2.one * 0.5f;
+                return nodePos;
+            
+            case PlaceableDimension.TwoByThree:
+                nodePos += Vector2.right * 0.5f;
+                return nodePos;
+            
+            default:
+                return nodePos;
+        }
+    }
 }
