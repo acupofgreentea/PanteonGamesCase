@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace _Scripts.Tiles
 {
-    public abstract class NodeBase : MonoBehaviour
+    public abstract class NodeBase : MonoBehaviour, ISelectable
     {
         [Header("References")] [SerializeField]
         private Color _obstacleColor;
@@ -14,14 +15,19 @@ namespace _Scripts.Tiles
         [SerializeField] protected SpriteRenderer _renderer;
 
         public ICoords Coords;
-
-        public float GetDistance(NodeBase other) =>
-            Coords.GetDistance(other.Coords); // Helper to reduce noise in pathfinding
-
+        
         public bool Walkable { get; private set; }
         private Color _defaultColor;
 
         public bool IsAvailable { get; set; } = true;
+        
+        public NodeStateController NodeStateController { get; private set; }
+
+        private void Awake()
+        {
+            NodeStateController = GetComponent<NodeStateController>().Init(this);
+        }
+
 
         public virtual void Init(bool walkable, bool changeColor, ICoords coords)
         {
@@ -36,12 +42,18 @@ namespace _Scripts.Tiles
             SetCoords(coords);
         }
 
+        public float GetDistance(NodeBase other) =>
+            Coords.GetDistance(other.Coords); // Helper to reduce noise in pathfinding
         public virtual void SetCoords(ICoords coords)
         {
             Coords = coords;
             transform.position = Coords.Pos;
         }
         
+        public void HandleOnSelected()
+        {
+            NodeStateController.HandleOnNodeSelected();
+        }
 
         #region Pathfinding
 
@@ -78,7 +90,6 @@ namespace _Scripts.Tiles
         #endregion
     }
 }
-
 
 public interface ICoords
 {

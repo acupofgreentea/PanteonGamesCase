@@ -5,7 +5,7 @@ using UnityEngine;
 namespace _Scripts.Tiles {
     public class HexNode : NodeBase {
         public override void CacheNeighbors() {
-            Neighbors = GridSelectionManager.Instance.Nodes.Where(t => Coords.GetDistance(t.Value.Coords) == 1).Select(t=>t.Value).ToList();
+            Neighbors = GridManager.Instance.Nodes.Where(t => Coords.GetDistance(t.Value.Coords) == 1).Select(t=>t.Value).ToList();
         }
     }
 }

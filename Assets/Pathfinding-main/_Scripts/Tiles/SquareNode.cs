@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Tarodev_Pathfinding._Scripts.Grid;
 using UnityEngine;
 
 namespace _Scripts.Tiles
@@ -16,7 +17,7 @@ namespace _Scripts.Tiles
         {
             Neighbors = new List<NodeBase>();
 
-            foreach (var tile in Dirs.Select(dir => GridSelectionManager.Instance.GetNodeAtPosition(Coords.Pos + dir))
+            foreach (var tile in Dirs.Select(dir => GridManager.Instance.GetNodeAtPosition(Coords.Pos + dir))
                          .Where(tile => tile != null))
             {
                 Neighbors.Add(tile);

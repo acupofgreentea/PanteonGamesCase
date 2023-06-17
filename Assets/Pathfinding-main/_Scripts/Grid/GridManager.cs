@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.Tiles;
 using Tarodev_Pathfinding._Scripts.Grid.Scriptables;
 using UnityEngine;
@@ -10,32 +12,64 @@ namespace Tarodev_Pathfinding._Scripts.Grid
         [SerializeField] private ScriptableGrid scriptableGrid;
         [SerializeField] private Transform gridParent;
 
-        private Dictionary<Vector2, NodeBase> tiles = new();
+        public Dictionary<Vector2, NodeBase> Nodes { get; private set; }
+
+        public static GridManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance)
+            {
+                Destroy(this);
+                return;
+            }
+
+            Instance = this;
+            Nodes = new Dictionary<Vector2, NodeBase>();
+        }
 
         private void Start()
         {
-            tiles.Clear();
+            Nodes.Clear();
+
             var nodes = gridParent.GetComponentsInChildren<NodeBase>();
             if (nodes.Length == 0)
             {
                 Debug.LogError("You should create grid first before running the game");
             }
-            
+
             foreach (NodeBase nodeBase in nodes)
             {
-                nodeBase.SetCoords(new SquareCoords(){Pos = nodeBase.transform.position});
-                tiles.Add(nodeBase.Coords.Pos, nodeBase);
+                nodeBase.SetCoords(new SquareCoords() { Pos = nodeBase.transform.position });
+                Nodes.Add(nodeBase.Coords.Pos, nodeBase);
             }
 
-            GridSelectionManager.Instance.SetTiles(tiles);
+            foreach (var tile in Nodes.Values)
+                tile.CacheNeighbors();
         }
+
+        public NodeBase GetNodeAtPosition(Vector2 pos) => Nodes.TryGetValue(pos, out var node) ? node : null;
+
+        public List<NodeBase> GetNodesAtDirections(NodeBase node, Vector2[] dir)
+        {
+            List<NodeBase> nodes = new List<NodeBase>();
+
+            foreach (Vector2 currentDir in dir)
+            {
+                nodes.AddRange(Nodes.Values.Where(nodeBase => nodeBase.Coords.Pos == node.Coords.Pos + currentDir));
+            }
+
+            return nodes;
+        }
+
+        #region editorcode
 
 #if UNITY_EDITOR
 
         [ContextMenu("Clear")]
         public void ClearTiles()
         {
-            tiles.Clear();
+            Nodes.Clear();
         }
 
         public void CreateGrid()
@@ -52,8 +86,10 @@ namespace Tarodev_Pathfinding._Scripts.Grid
             for (int i = this.gridParent.childCount; i > 0; --i)
                 DestroyImmediate(gridParent.GetChild(0).gameObject);
 
-            tiles.Clear();
+            Nodes.Clear();
         }
 #endif
+
+        #endregion
     }
 }
