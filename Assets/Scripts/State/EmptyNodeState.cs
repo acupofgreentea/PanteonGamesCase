@@ -18,13 +18,13 @@ public class EmptyNodeState : NodeStateBase
         Vector2[] directions = nodeBase.GetDirectionByDimension(currentBuilding.Dimension);
 
         List<NodeBase> list = GridManager.Instance.GetNodesAtDirections(nodeBase, directions);
-        
-        if(!list.Contains(nodeBase))
+
+        if (!list.Contains(nodeBase))
             list.Add(nodeBase);
 
         if (list.Count != directions.Length)
             return false;
-        
+
         if (list.Any(x => x.IsAvailable == false))
             return false;
 
@@ -36,9 +36,13 @@ public class EmptyNodeState : NodeStateBase
 
     public override void HandleNodeSelected()
     {
-        BuildManager.Instance.Build(IsAbleToBuild(), nodeBase);
-        
-        if(IsAbleToBuild())
-            nodeBase.NodeStateController.ChangeState(NodeState.Building);
+        bool isAbleToBuild = IsAbleToBuild();
+
+        BuildManager.Instance.Build(isAbleToBuild, nodeBase);
+
+        if (!isAbleToBuild)
+            return;
+
+        nodeBase.NodeStateController.ChangeState(NodeState.Building);
     }
 }

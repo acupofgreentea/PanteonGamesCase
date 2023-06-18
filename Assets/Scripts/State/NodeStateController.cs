@@ -14,7 +14,6 @@ public class NodeStateController : StateControllerBase<NodeState, NodeStateBase>
         return this;
     }
 
-
     protected override void CreateDictionary()
     {
         stateDictionary = new Dictionary<NodeState, NodeStateBase>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class StateControllerBase<T, T1> : MonoBehaviour where T : System.Enum where T1 : StateBase
+public abstract class StateControllerBase<T, T1> : MonoBehaviour where T : System.Enum
 {
     protected T1 CurrentState { get; private set; }
 

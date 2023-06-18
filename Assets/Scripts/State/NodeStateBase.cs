@@ -1,6 +1,6 @@
 ﻿using _Scripts.Tiles;
 
-public abstract class NodeStateBase : StateBase
+public abstract class NodeStateBase
 {
     protected NodeBase nodeBase;
     
