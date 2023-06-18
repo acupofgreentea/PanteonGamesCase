@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using _Scripts.Tiles;
 using Tarodev_Pathfinding._Scripts.Grid;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BuildManager : MonoBehaviour
 {
     [field: SerializeField] public BuildingBase CurrentBuilding { get; private set; }
     
     public static BuildManager Instance { get; private set; }
-
+    
+    public UnityAction OnBuilt { get; set; }
+    
     private void Awake()
     {
         if (Instance)
@@ -31,6 +34,8 @@ public class BuildManager : MonoBehaviour
             return;
         }
 
+        OnBuilt?.Invoke();
+        
         var build = Instantiate(CurrentBuilding);
         build.transform.position = nodeBase.GetPositionByDimension(build.Dimension);
     }

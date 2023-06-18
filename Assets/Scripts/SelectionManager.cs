@@ -21,8 +21,11 @@ public class SelectionManager : MonoBehaviour
 
     private void HandleFingerDown(LeanFinger finger)
     {
-        RaycastHit2D hit = Physics2D.Raycast(finger.GetWorldPosition(100f), Vector2.zero);
+        RaycastHit2D hit = Physics2D.Raycast(finger.GetWorldPosition(0f), Vector2.zero);
 
+        if(finger.IsOverGui)
+            return;
+        
         if (hit.collider == null) 
             return;
 
@@ -30,11 +33,6 @@ public class SelectionManager : MonoBehaviour
             return;
         
         selectable.HandleOnSelected();
-    }
-
-    private void OnTileHover(NodeBase nodeBase)
-    {
-        //var path = Pathfinding.FindPath(startNode, targetNode);
     }
 
     private void OnDestroy()
