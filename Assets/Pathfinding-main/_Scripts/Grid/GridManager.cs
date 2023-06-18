@@ -85,7 +85,7 @@ namespace Tarodev_Pathfinding._Scripts.Grid
             for (int i = this.gridParent.childCount; i > 0; --i)
                 DestroyImmediate(gridParent.GetChild(0).gameObject);
 
-            Nodes.Clear();
+            Nodes?.Clear();
         }
 #endif
 

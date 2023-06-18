@@ -1,44 +1,27 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace _Scripts.Tiles
 {
     public abstract class NodeBase : MonoBehaviour, ISelectable
     {
-        [Header("References")] [SerializeField]
-        private Color _obstacleColor;
-
-        [SerializeField] private Gradient _walkableColor;
-        [SerializeField] protected SpriteRenderer _renderer;
-
         public ICoords Coords;
-        
         public bool Walkable { get; private set; }
-        private Color _defaultColor;
-
         public bool IsAvailable { get; set; } = true;
-        
         public NodeStateController NodeStateController { get; private set; }
+        public NodeSpriteController NodeSpriteController { get; private set; }
 
         private void Awake()
         {
             NodeStateController = GetComponent<NodeStateController>().Init(this);
+            NodeSpriteController = GetComponent<NodeSpriteController>().Init(this);
         }
-
 
         public virtual void Init(bool walkable, bool changeColor, ICoords coords)
         {
             Walkable = walkable;
-
-            _renderer.color = walkable
-                ? changeColor ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _walkableColor.Evaluate(1f)
-                : _obstacleColor;
-            
-            _defaultColor = _renderer.color;
-            
+            NodeSpriteController ??= GetComponent<NodeSpriteController>().Init(this);
+            NodeSpriteController.InitNodeColor(walkable, changeColor);
             SetCoords(coords);
         }
 
@@ -69,7 +52,6 @@ namespace _Scripts.Tiles
         {
             Connection = nodeBase;
         }
-
         public void SetG(float g)
         {
             G = g;
@@ -78,13 +60,6 @@ namespace _Scripts.Tiles
         public void SetH(float h)
         {
             H = h;
-        }
-
-        public void SetColor(Color color) => _renderer.color = color;
-
-        public void RevertTile()
-        {
-            _renderer.color = _defaultColor;
         }
 
         #endregion

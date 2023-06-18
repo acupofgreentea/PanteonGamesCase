@@ -23,13 +23,6 @@ namespace _Scripts.Tiles
                 Neighbors.Add(tile);
             }
         }
-
-        public override void Init(bool walkable, bool changeColor, ICoords coords)
-        {
-            base.Init(walkable, changeColor, coords);
-
-            _renderer.transform.rotation = Quaternion.Euler(0, 0, 90 * Random.Range(0, 4));
-        }
     }
 }
 
