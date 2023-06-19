@@ -8,7 +8,7 @@ public abstract class StateControllerBase<T, T1> : MonoBehaviour where T : Syste
     protected Dictionary<T, T1> stateDictionary;
     protected abstract void CreateDictionary();
 
-    public void ChangeState(T type)
+    public virtual void ChangeState(T type)
     {
         CurrentState = stateDictionary.GetValueOrDefault(type);
     }
