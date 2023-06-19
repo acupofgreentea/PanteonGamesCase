@@ -11,10 +11,12 @@ namespace _Scripts.Tiles
         public NodeStateController NodeStateController { get; private set; }
         public NodeSpriteController NodeSpriteController { get; private set; }
 
+        
         private void Awake()
         {
             NodeStateController = GetComponent<NodeStateController>().Init(this);
             NodeSpriteController = GetComponent<NodeSpriteController>().Init(this);
+            Walkable = true;
         }
 
         public virtual void Init(bool walkable, bool changeColor, ICoords coords)
