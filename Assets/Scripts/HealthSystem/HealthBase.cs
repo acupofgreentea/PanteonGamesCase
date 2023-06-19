@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthBase : MonoBehaviour
 {
@@ -7,12 +8,17 @@ public class HealthBase : MonoBehaviour
     protected float maxHealth;
     public float CurrentHealth { get; private set; }
     
-    public HealthBase Init()
+    public UnityAction OnDie { get; set; }
+
+    protected virtual void Awake()
+    {
+        InitializeHealth();
+    }
+
+    private void InitializeHealth()
     {
         maxHealth = healthSo.MaxHealth;
         CurrentHealth = maxHealth;
-        
-        return this;
     }
 
     public virtual void TakeDamage(float damage)
@@ -28,6 +34,6 @@ public class HealthBase : MonoBehaviour
 
     protected virtual void Die()
     {
-        
+        OnDie?.Invoke();   
     }
 }
