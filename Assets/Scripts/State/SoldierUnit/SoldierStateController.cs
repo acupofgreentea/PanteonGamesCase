@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using _Scripts.Tiles;
 using UnityEngine;
 
 public class SoldierStateController : StateControllerBase<SoldierState, SoldierStateBase>
@@ -11,17 +13,34 @@ public class SoldierStateController : StateControllerBase<SoldierState, SoldierS
         CreateDictionary();
         return this;
     }
-    
+
+    private void Start()
+    {
+        SelectionManager.Instance.OnTargetNodeSelected += TargetNodeSelected;
+    }
+
+    private void TargetNodeSelected(NodeBase target)
+    {
+        soldierUnit.TargetNode = target;
+        ChangeState(SoldierState.MoveToTarget);
+    }
+
     protected override void CreateDictionary()
     {
         stateDictionary = new Dictionary<SoldierState, SoldierStateBase>()
         {
             { SoldierState.MoveToTarget, new SoldierMoveToTargetState(soldierUnit)},
             { SoldierState.Patrol, new SoldierPatrolState(soldierUnit)},
+            { SoldierState.Idle, new SoldierIdleState(soldierUnit)},
+            { SoldierState.Attack, new SoldierAttackState(soldierUnit)},
         };
     }
-    
-    
+
+    private void Update()
+    {
+        CurrentState?.UpdateState();
+    }
+
     //test
     [ContextMenu("Change")]
     public void Change()

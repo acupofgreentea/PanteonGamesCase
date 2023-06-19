@@ -39,7 +39,12 @@ public class SoldierPatrolState : SoldierStateBase
             MoveToNextPatrolNode();
         }
     }
-    
+
+    public override void UpdateState()
+    {
+        
+    }
+
     private void MoveToNextPatrolNode()
     {
         NodeBase nextNode = patrolArea[patrolIndex];

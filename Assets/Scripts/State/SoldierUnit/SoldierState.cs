@@ -1,5 +1,7 @@
 ﻿public enum SoldierState
 {
     Patrol,
-    MoveToTarget
+    MoveToTarget,
+    Idle,
+    Attack
 }

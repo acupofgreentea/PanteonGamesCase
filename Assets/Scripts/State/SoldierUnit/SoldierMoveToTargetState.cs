@@ -25,7 +25,12 @@ public class SoldierMoveToTargetState : SoldierStateBase
         Sequence sequence = DOTween.Sequence();
 
         foreach (var nodeBase in path)
-            sequence.Append(soldierUnit.transform.DOMove(nodeBase.transform.position, 3f));
+            sequence.Append(soldierUnit.transform.DOMove(nodeBase.transform.position, 3f).OnComplete(()=> soldierUnit.CurrentNode = nodeBase));
+    }
+
+    public override void UpdateState()
+    {
+        
     }
 
     public override void ExitState()
