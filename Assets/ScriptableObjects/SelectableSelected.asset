@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a825c3ace4374e6290dd513b8a48a9a3, type: 3}
-  m_Name: PowerPlant
+  m_Script: {fileID: 11500000, guid: d2966c2c8146412692a6175474b868b2, type: 3}
+  m_Name: SelectableSelected
   m_EditorClassIdentifier: 
-  <PlaceableName>k__BackingField: Power Plant
-  <PlaceableDimension>k__BackingField: 0
-  <PlaceableSprite>k__BackingField: {fileID: 0}
-  <BuildingPrefab>k__BackingField: {fileID: 0}

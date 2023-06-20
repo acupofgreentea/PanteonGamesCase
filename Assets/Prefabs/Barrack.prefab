@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5091273661217346663
 Transform:
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7e070d10b63c4014b99407840c20cc73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,7 +102,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &5091273662809681791
 Transform:
@@ -134,6 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PlaceableSo>k__BackingField: {fileID: 11400000, guid: 1cbfce9e5c288264aad8ada900bfe2ff, type: 2}
   buildingVisual: {fileID: 5091273661217346656}
+  selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
+  <BuildingProductionUISO>k__BackingField: {fileID: 11400000, guid: 4580a89cd9c734a4fae1b1aabc52b41b, type: 2}
 --- !u!114 &7804842479239098087
 MonoBehaviour:
   m_ObjectHideFlags: 0
