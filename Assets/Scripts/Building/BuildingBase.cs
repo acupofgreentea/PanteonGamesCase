@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using _Scripts.Tiles;
 using UnityEngine;
 
-public abstract class BuildingBase : MonoBehaviour, ISoldierTarget
+public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
 {
     [field: SerializeField] public PlaceableSo PlaceableSo { get; private set; }
 
     [SerializeField] private SpriteRenderer buildingVisual;
+
+    [SerializeField] private GameEvent selectableSelectedEvent;
 
     public List<NodeBase> OccupiedNodes { get; set; }
     public PlaceableDimension Dimension => PlaceableSo.PlaceableDimension;
@@ -28,14 +30,17 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget
         List<NodeBase> allNeighbors = new List<NodeBase>();
         
         foreach (NodeBase occupiedNode in OccupiedNodes)
-        {
             allNeighbors.AddRange(occupiedNode.Neighbors.FindAll(x=> x.IsAvailable && x.Walkable));
-        }
 
         NodeBase closestToTarget = allNeighbors.GetClosestToTarget(soldierUnit.transform);
-
+        
         soldierUnit.TargetNode = closestToTarget;
         soldierUnit.SoldierAttackController.SetCurrentTarget(BuildingHealth);
         soldierUnit.SoldierStateController.ChangeState(SoldierState.MoveToTarget);
+    }
+
+    public void HandleOnSelected()
+    {
+        selectableSelectedEvent.Raise();
     }
 }

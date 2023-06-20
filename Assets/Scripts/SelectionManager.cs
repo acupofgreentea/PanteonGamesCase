@@ -11,6 +11,7 @@ public class SelectionManager : MonoBehaviour
     private Camera cam;
 
     private Transform lastSelected;
+    public Transform LastSelected => lastSelected;
     private void Awake()
     {
         if (Instance)
