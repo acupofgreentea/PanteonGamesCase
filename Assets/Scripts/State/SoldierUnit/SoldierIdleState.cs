@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using _Scripts.Tiles;
+using DG.Tweening;
+using UnityEngine;
 
 public class SoldierIdleState : SoldierStateBase
 {
@@ -7,13 +9,26 @@ public class SoldierIdleState : SoldierStateBase
         
     }
 
-    private float maxStateDuration = 3f;
+    private readonly float maxStateDuration = 3f;
 
     private float enterStateTime;
     public override void EnterState()
-    {
+    { 
+        ChangeNode();
+        
+        soldierUnit.transform.DOMove(soldierUnit.CurrentNode.transform.position, 0.25f);
         enterStateTime = Time.time;
+        
         //play idle animation etc.
+    }
+
+    private void ChangeNode()
+    {
+        if (soldierUnit.CurrentNode.IsAvailable && soldierUnit.CurrentNode.Walkable)
+            return;
+
+        NodeBase currentNode = soldierUnit.CurrentNode;
+        soldierUnit.CurrentNode = currentNode.GetAvailableClosestToTargetNeighbor(soldierUnit.transform);
     }
 
     public override void UpdateState()

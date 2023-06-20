@@ -3,5 +3,6 @@
     Patrol,
     MoveToTarget,
     Idle,
-    Attack
+    Attack,
+    Empty
 }

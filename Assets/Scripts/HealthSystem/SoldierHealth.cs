@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SoldierHealth : HealthBase
@@ -10,7 +11,7 @@ public class SoldierHealth : HealthBase
         return this;
     }
 
-    [ContextMenu("kill")]
+    [ContextMenu("Kill")]
     public void Kill()
     {
         TakeDamage(100);
@@ -19,6 +20,7 @@ public class SoldierHealth : HealthBase
     protected override void Die()
     {
         base.Die();
-        SoldierPool.Instance.ReturnToPool(soldierUnit);
+
+        this.DelayMethod(()=> SoldierPool.Instance.ReturnToPool(soldierUnit));
     }
 }

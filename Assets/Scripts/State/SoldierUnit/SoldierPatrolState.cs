@@ -2,6 +2,7 @@
 using System.Linq;
 using _Scripts.Tiles;
 using DG.Tweening;
+using Tarodev_Pathfinding._Scripts;
 using UnityEngine;
 
 public class SoldierPatrolState : SoldierStateBase
@@ -17,6 +18,12 @@ public class SoldierPatrolState : SoldierStateBase
     private int patrolIndex = 0;
     public override void EnterState()
     {
+        if (soldierUnit.CurrentNode == null)
+        {
+            Debug.LogError("current node is null in patrol state");
+            return;
+        }
+        
         patrolIndex = 0;
         startNode = soldierUnit.CurrentNode;
 
@@ -44,23 +51,49 @@ public class SoldierPatrolState : SoldierStateBase
     {
         
     }
+    private List<NodeBase> GetPath(NodeBase startNode, NodeBase targetNode)
+    {
+        List<NodeBase> path = Pathfinding.FindPath(startNode, targetNode);
 
+        if (path == null || path.Count == 0)
+            return null;
+            
+        path.Reverse();
+
+        return path;
+    }
+
+    private Sequence patrolSequence = DOTween.Sequence();
     private void MoveToNextPatrolNode()
     {
         NodeBase nextNode = patrolArea[patrolIndex];
-        Vector3 targetPosition = nextNode.transform.position;
 
-        soldierUnit.transform.DOMove(targetPosition, 1.5f).OnComplete(OnMoveComplete);
+        var path = GetPath(soldierUnit.CurrentNode, nextNode);
+        if (path == null)
+        {
+            soldierUnit.SoldierStateController.ChangeState(SoldierState.Idle);
+            return;
+        }
+
+        patrolSequence = DOTween.Sequence();
+        
+        foreach (NodeBase nodeBase in path)
+        {
+            patrolSequence.Append(
+            soldierUnit.transform.DOMove(nodeBase.transform.position, 1f)).OnComplete(OnMoveComplete);
+        }
     }
 
     private void OnMoveComplete()
     {
+        soldierUnit.CurrentNode = patrolArea[patrolIndex];
         patrolIndex = (patrolIndex + 1) % patrolArea.Count;
         MoveToNextPatrolNode();
     }
     
     public override void ExitState()
     {
+        patrolSequence.Kill();
         soldierUnit.transform.DOKill();
     }
 }

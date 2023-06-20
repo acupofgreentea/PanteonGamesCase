@@ -2,6 +2,7 @@
 using _Scripts.Tiles;
 using DG.Tweening;
 using Tarodev_Pathfinding._Scripts;
+using UnityEngine;
 
 public class SoldierMoveToTargetState : SoldierStateBase
 {
@@ -15,6 +16,10 @@ public class SoldierMoveToTargetState : SoldierStateBase
     {
         List<NodeBase> path = Pathfinding.FindPath(soldierUnit.CurrentNode, soldierUnit.TargetNode);
 
+        if (path == null || path.Count == 0)
+            return null;
+        
+            
         path.Reverse();
 
         return path;
@@ -37,6 +42,14 @@ public class SoldierMoveToTargetState : SoldierStateBase
     public override void EnterState()
     {
         List<NodeBase> path = GetPath();
+        
+        if (path == null)
+        {
+            soldierUnit.transform.DOMove(soldierUnit.TargetNode.transform.position, 0.25f)
+                .OnComplete(HandleOnReachedTarget);
+            return;
+        }
+        
         moveSequence = DOTween.Sequence();
 
         moveSequence.OnComplete(HandleOnReachedTarget);

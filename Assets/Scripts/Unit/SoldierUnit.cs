@@ -1,4 +1,6 @@
-﻿using _Scripts.Tiles;
+﻿using System;
+using _Scripts.Tiles;
+using DG.Tweening;
 using UnityEngine;
 
 public class SoldierUnit : UnitBase, ISelectable
@@ -14,6 +16,23 @@ public class SoldierUnit : UnitBase, ISelectable
         SoldierStateController = GetComponent<SoldierStateController>().Init(this);
         SoldierAttackController = GetComponent<SoldierAttackController>().Init(this);
         SoldierHealth = GetComponent<SoldierHealth>().Init(this);
+    }
+
+    private void Start()
+    {
+        SoldierHealth.OnDie += HandleOnDie;
+    }
+
+    private void HandleOnDie()
+    {
+        CurrentNode = null;
+        TargetNode = null;
+        transform.DOKill();
+    }
+
+    private void OnDestroy()
+    {
+        SoldierHealth.OnDie -= HandleOnDie;
     }
 
     public void HandleOnSelected()

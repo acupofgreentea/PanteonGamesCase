@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class HealthBase : MonoBehaviour
@@ -10,7 +11,8 @@ public class HealthBase : MonoBehaviour
     
     public UnityAction OnDie { get; set; }
 
-    protected virtual void Awake()
+
+    private void OnEnable()
     {
         InitializeHealth();
     }
