@@ -37,7 +37,7 @@ public class BuildManager : MonoBehaviour
         var build = Instantiate(CurrentBuilding);
         
         List<NodeBase> otherNodes = GridManager.Instance.GetNodesAtDirections(nodeBase, nodeBase.GetDirectionByDimension(CurrentBuilding.Dimension));
-        CurrentBuilding.OccupiedNodes = new List<NodeBase>(otherNodes);
+        build.OccupiedNodes = otherNodes;
 
         foreach (NodeBase otherNode in otherNodes)
         {

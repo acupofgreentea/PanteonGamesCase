@@ -13,7 +13,7 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget
     
     public BuildingHealth BuildingHealth { get; private set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         BuildingHealth = GetComponent<BuildingHealth>().Init(this);
     }
