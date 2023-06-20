@@ -61,6 +61,6 @@ public class SoldierPatrolState : SoldierStateBase
     
     public override void ExitState()
     {
-        
+        soldierUnit.transform.DOKill();
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using _Scripts.Tiles;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierStateController : StateControllerBase<SoldierState, SoldierStateBase>
@@ -12,17 +10,6 @@ public class SoldierStateController : StateControllerBase<SoldierState, SoldierS
         this.soldierUnit = soldierUnit;
         CreateDictionary();
         return this;
-    }
-
-    private void Start()
-    {
-        SelectionManager.Instance.OnTargetNodeSelected += TargetNodeSelected;
-    }
-
-    private void TargetNodeSelected(NodeBase target)
-    {
-        soldierUnit.TargetNode = target;
-        ChangeState(SoldierState.MoveToTarget);
     }
 
     protected override void CreateDictionary()
