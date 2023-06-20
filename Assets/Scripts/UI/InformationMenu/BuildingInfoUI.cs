@@ -7,6 +7,11 @@ public class BuildingInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI buildingNameText;
     [SerializeField] private Image buildingImage;
 
+    private void Start()
+    {
+        SetActivePanel(false);
+    }
+
     public void Setup()
     {  
         SetActivePanel(false);
@@ -17,7 +22,8 @@ public class BuildingInfoUI : MonoBehaviour
         
         SetActivePanel(true);
         buildingNameText.text = buildingBase.PlaceableSo.PlaceableName;
-        buildingImage.sprite = buildingBase.PlaceableSo.PlaceableSprite;
+        buildingImage.sprite = buildingBase.PlaceableSo.PlaceableSpriteUI;
+        buildingImage.SetNativeSize();
     }
 
     private void SetActivePanel(bool enable)

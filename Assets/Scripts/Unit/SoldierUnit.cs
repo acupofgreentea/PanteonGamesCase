@@ -1,10 +1,10 @@
-﻿using System;
-using _Scripts.Tiles;
+﻿using _Scripts.Tiles;
 using DG.Tweening;
 using UnityEngine;
 
 public class SoldierUnit : UnitBase, ISelectable
 {
+    [SerializeField] private GameEvent selectableSelectedEvent;
     [field: SerializeField] public NodeBase CurrentNode { get; set; }
     [field: SerializeField] public NodeBase TargetNode { get; set; }
     public SoldierStateController SoldierStateController { get; private set; }
@@ -37,6 +37,7 @@ public class SoldierUnit : UnitBase, ISelectable
 
     public void HandleOnSelected()
     {
+        selectableSelectedEvent.Raise();
         SoldierStateController.ChangeState(SoldierState.Idle);
         //ready to move!
     }

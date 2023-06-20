@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: BarrackProductionUI
   m_EditorClassIdentifier: 
   <Productions>k__BackingField:
-  - <ProductionSprite>k__BackingField: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
-  - <ProductionSprite>k__BackingField: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
+  - <ProductionSprite>k__BackingField: {fileID: 21300000, guid: c7136e651cc5b2d439c98d873b471277, type: 3}

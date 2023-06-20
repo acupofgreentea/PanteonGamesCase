@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 5320038171202644471}
+  selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
   <CurrentNode>k__BackingField: {fileID: 0}
   <TargetNode>k__BackingField: {fileID: 0}
 --- !u!114 &5320038172407524519

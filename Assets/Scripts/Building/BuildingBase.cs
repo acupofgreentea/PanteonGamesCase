@@ -4,11 +4,10 @@ using UnityEngine;
 
 public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
 {
+    [SerializeField] private GameEvent selectableSelectedEvent;
     [field: SerializeField] public PlaceableSo PlaceableSo { get; private set; }
 
     [SerializeField] private SpriteRenderer buildingVisual;
-
-    [SerializeField] private GameEvent selectableSelectedEvent;
 
     public List<NodeBase> OccupiedNodes { get; set; }
     public PlaceableDimension Dimension => PlaceableSo.PlaceableDimension;
@@ -40,7 +39,7 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
     }
 
     public void HandleOnSelected()
-    {
+    {        
         selectableSelectedEvent.Raise();
     }
 }

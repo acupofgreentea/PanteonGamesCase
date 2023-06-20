@@ -1,12 +1,9 @@
-﻿using _Scripts.Tiles;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SelectionManager : MonoBehaviour
 {
     public static SelectionManager Instance { get; private set; }
-    public UnityAction<NodeBase, ISelectable> OnTargetNodeSelected { get; set; }
 
     private Camera cam;
 

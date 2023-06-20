@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
   <PlaceableName>k__BackingField: Power Plant
-  <PlaceableDimension>k__BackingField: 0
-  <PlaceableSprite>k__BackingField: {fileID: 0}
-  <BuildingPrefab>k__BackingField: {fileID: 0}
+  <PlaceableDimension>k__BackingField: 2
+  <PlaceableSprite>k__BackingField: {fileID: 21300000, guid: 341ce0cf07e9dd84b97c0d4d1da022a8, type: 3}
+  <PlaceableSpriteUI>k__BackingField: {fileID: 21300000, guid: ce096a74e55230046acdb1aa9be9b58a, type: 3}
+  <BuildingPrefab>k__BackingField: {fileID: 1737015094305512475, guid: d4c9bd4a950739649924f57c906a280a, type: 3}

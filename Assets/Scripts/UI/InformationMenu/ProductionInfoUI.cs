@@ -14,6 +14,11 @@ public class ProductionInfoUI : MonoBehaviour
         pool = GetComponent<BuildingProductionItemSinglePool>();
     }
 
+    private void Start()
+    {
+        SetActivePanel(false);
+    }
+
     public void Setup()
     {
         Transform selectable = SelectionManager.Instance.LastSelected;

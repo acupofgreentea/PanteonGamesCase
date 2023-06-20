@@ -15,4 +15,5 @@ MonoBehaviour:
   <PlaceableName>k__BackingField: Barrack
   <PlaceableDimension>k__BackingField: 1
   <PlaceableSprite>k__BackingField: {fileID: 21300000, guid: f49ea029b66424a4a9500845584faa9c, type: 3}
+  <PlaceableSpriteUI>k__BackingField: {fileID: 21300000, guid: f49ea029b66424a4a9500845584faa9c, type: 3}
   <BuildingPrefab>k__BackingField: {fileID: 5091273662809681790, guid: 31ea50b1fece12c409e53ed0326eb140, type: 3}
