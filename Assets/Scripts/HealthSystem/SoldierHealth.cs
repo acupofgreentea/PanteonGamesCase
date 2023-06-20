@@ -21,6 +21,6 @@ public class SoldierHealth : HealthBase
     {
         base.Die();
 
-        this.DelayMethod(()=> SoldierPool.Instance.ReturnToPool(soldierUnit));
+        this.DelayMethod(()=> SoldierSinglePool.Instance.ReturnToPool(soldierUnit));
     }
 }

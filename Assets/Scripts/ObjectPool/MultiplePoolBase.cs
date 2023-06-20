@@ -1,25 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
-public class PoolBase<T> : MonoBehaviour where T : MonoBehaviour 
+public class MultiplePoolBase<T> : MonoBehaviour where T : MonoBehaviour 
 {
-    [SerializeField] private T prefab;
+    [SerializeField] private List<T> prefabs;
     [SerializeField] private int initialCount = 5;
     [SerializeField] private Transform poolParent;
     
-    private ObjectPool<T> pool;
+    private MultipleObjectPool<T> pool;
     
     public UnityAction<T> OnReturnToPool { get; set; }
     public UnityAction<T> OnGetFromPool { get; set; }
     
     protected virtual void Awake()
     {
-        pool = new ObjectPool<T>(poolParent, prefab, initialCount);
+        pool = new MultipleObjectPool<T>(poolParent, prefabs, initialCount);
     }
     
-    public virtual T Get()
+    public virtual T Get(T type)
     {
-        T t = pool.Get();
+        T t = pool.Get(type);
         OnGetFromPool?.Invoke(t);
         return t;
     }

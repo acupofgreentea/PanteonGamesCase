@@ -8,12 +8,12 @@ public class ProductionMenuUI : MonoBehaviour
 
     [SerializeField] private int initialCount = 20;
 
-    private ProductionMenuPool productionMenuPool;
+    private ProductionMenuSinglePool productionMenuSinglePool;
     
     private readonly Queue productionItemUIQueue = new Queue();
     private void Awake()
     {
-        productionMenuPool = GetComponent<ProductionMenuPool>();
+        productionMenuSinglePool = GetComponent<ProductionMenuSinglePool>();
 
         for (int i = 0; i < initialCount; i++)
         {
@@ -29,7 +29,7 @@ public class ProductionMenuUI : MonoBehaviour
     [ContextMenu("Show")]
     private void Show()
     {
-        ProductionItemUI item = productionMenuPool.Get();
+        ProductionItemUI item = productionMenuSinglePool.Get();
 
         item.transform.SetParent(contentParent);
         productionItemUIQueue.Enqueue(item);
@@ -39,7 +39,7 @@ public class ProductionMenuUI : MonoBehaviour
     private void Hide()
     {
         ProductionItemUI item = (ProductionItemUI) productionItemUIQueue.Dequeue();
-        productionMenuPool.ReturnToPool(item);
+        productionMenuSinglePool.ReturnToPool(item);
 
         if (productionItemUIQueue.Count < initialCount)
             Show();

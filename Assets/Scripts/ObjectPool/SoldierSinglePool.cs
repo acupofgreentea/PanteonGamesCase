@@ -1,7 +1,7 @@
 ﻿
-public class SoldierPool : PoolBase<SoldierUnit>
+public class SoldierSinglePool : SinglePoolBase<SoldierUnit>
 {
-    public static SoldierPool Instance { get; private set; }
+    public static SoldierSinglePool Instance { get; private set; }
 
     protected override void Awake()
     {

@@ -13,7 +13,7 @@ public class BuildingSoldierSpawner : MonoBehaviour
 
     private List<SoldierUnit> activeSoldiers = new List<SoldierUnit>();
 
-    private SoldierPool soldierPool;
+    private SoldierSinglePool soldierSinglePool;
 
     private NodeBase spawnNode;
 
@@ -27,8 +27,8 @@ public class BuildingSoldierSpawner : MonoBehaviour
 
     private IEnumerator Start()
     {
-        soldierPool = SoldierPool.Instance;
-        soldierPool.OnReturnToPool += HandleOnSoldierDie;
+        soldierSinglePool = SoldierSinglePool.Instance;
+        soldierSinglePool.OnReturnToPool += HandleOnSoldierDie;
         lastSpawnTime = Time.time;
         SetSpawnPoint();
         yield return null;
@@ -63,7 +63,7 @@ public class BuildingSoldierSpawner : MonoBehaviour
     private void SpawnSoldier()
     {
         UpdateSpawnPoint();
-        SoldierUnit newSoldier = soldierPool.Get();
+        SoldierUnit newSoldier = soldierSinglePool.Get();
         activeSoldiers.Add(newSoldier);
         
         newSoldier.CurrentNode = spawnNode;
