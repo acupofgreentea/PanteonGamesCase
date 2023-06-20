@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class Extensions
 {
@@ -25,5 +27,16 @@ public static class Extensions
         }
 
         return closest;
+    }
+    
+    public static void DelayMethod(this MonoBehaviour monoBehaviour, UnityAction action)
+    {
+        monoBehaviour.StartCoroutine(Delay());
+        
+        IEnumerator Delay()
+        {
+            yield return null;
+            action?.Invoke();
+        }
     }
 }
