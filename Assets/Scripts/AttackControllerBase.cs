@@ -14,8 +14,9 @@ public abstract class AttackControllerBase : MonoBehaviour
             CurrentTarget.OnDie -= HandleOnTargetDie;
 
         CurrentTarget = healthBase;
-
-        CurrentTarget.OnDie += HandleOnTargetDie;
+        
+        if(CurrentTarget != null)
+            CurrentTarget.OnDie += HandleOnTargetDie;
     }
 
     protected virtual void HandleOnTargetDie()

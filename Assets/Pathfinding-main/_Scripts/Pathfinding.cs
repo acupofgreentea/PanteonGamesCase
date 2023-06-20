@@ -43,7 +43,6 @@ namespace Tarodev_Pathfinding._Scripts
                         if (count < 0) throw new Exception();
                     }
 
-                    Debug.Log(path.Count);
                     return path;
                 }
 

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace _Scripts.Tiles
 {
-    public abstract class NodeBase : MonoBehaviour, ISelectable
+    public abstract class NodeBase : MonoBehaviour, ISelectable, ISoldierTarget
     {
         public ICoords Coords;
-        public bool Walkable { get; private set; }
+        public bool Walkable { get; set; }
         public bool IsAvailable { get; set; } = true;
         public NodeStateController NodeStateController { get; private set; }
         public NodeSpriteController NodeSpriteController { get; private set; }
@@ -17,6 +17,7 @@ namespace _Scripts.Tiles
             NodeStateController = GetComponent<NodeStateController>().Init(this);
             NodeSpriteController = GetComponent<NodeSpriteController>().Init(this);
             Walkable = true;
+            IsAvailable = true;
         }
 
         public virtual void Init(bool walkable, bool changeColor, ICoords coords)
@@ -29,6 +30,7 @@ namespace _Scripts.Tiles
 
         public float GetDistance(NodeBase other) =>
             Coords.GetDistance(other.Coords); // Helper to reduce noise in pathfinding
+        
         public virtual void SetCoords(ICoords coords)
         {
             Coords = coords;
@@ -38,6 +40,13 @@ namespace _Scripts.Tiles
         public void HandleOnSelected()
         {
             NodeStateController.HandleOnNodeSelected();
+        }
+        
+        public void OnTargetSelected(SoldierUnit soldierUnit)
+        {
+            soldierUnit.TargetNode = this;
+            soldierUnit.SoldierAttackController.SetCurrentTarget(null);
+            soldierUnit.SoldierStateController.ChangeState(SoldierState.MoveToTarget);
         }
 
         #region Pathfinding
@@ -65,6 +74,7 @@ namespace _Scripts.Tiles
         }
 
         #endregion
+
     }
 }
 

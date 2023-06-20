@@ -28,15 +28,23 @@ public class BuildManager : MonoBehaviour
     {
         if (!isAbleToBuild)
         {
-            Debug.LogError("You cannot build here!");
             StartCoroutine(BuildFailSequence(nodeBase));
-            
             return;
         }
 
         OnBuilt?.Invoke();
         
         var build = Instantiate(CurrentBuilding);
+        
+        List<NodeBase> otherNodes = GridManager.Instance.GetNodesAtDirections(nodeBase, nodeBase.GetDirectionByDimension(CurrentBuilding.Dimension));
+        CurrentBuilding.OccupiedNodes = new List<NodeBase>(otherNodes);
+
+        foreach (NodeBase otherNode in otherNodes)
+        {
+            otherNode.IsAvailable = false;
+            otherNode.Walkable = false;
+        }
+        
         build.transform.position = nodeBase.GetPositionByDimension(build.Dimension);
     }
 

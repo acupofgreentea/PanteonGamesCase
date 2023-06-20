@@ -45,6 +45,10 @@ namespace Tarodev_Pathfinding._Scripts.Grid
 
             foreach (var tile in Nodes.Values)
                 tile.CacheNeighbors();
+
+            Vector3 pos = transform.position;
+            pos.z = 1f;
+            transform.position = pos;
         }
 
         public NodeBase GetNodeAtPosition(Vector2 pos) => Nodes.TryGetValue(pos, out var node) ? node : null;
