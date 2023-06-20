@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRate: 1
   MaxCount: 1
+  <AttackStatsSo>k__BackingField:
+  - {fileID: 11400000, guid: f9995cf0262d0e946950b96fef719776, type: 2}
+  - {fileID: 11400000, guid: 945d42f81ff2e8b49a7db29beada8d30, type: 2}
+  - {fileID: 11400000, guid: 8849ced15d5c8fc4b989a3e760e2dd96, type: 2}

@@ -66,6 +66,9 @@ public class BuildingSoldierSpawner : MonoBehaviour
         SoldierUnit newSoldier = soldierSinglePool.Get();
         activeSoldiers.Add(newSoldier);
         
+        //set the soldier's attack stats to a random one from the list.
+        newSoldier.SoldierAttackController.AttackStatsSo = soldierSpawnStatSo.AttackStatsSo.GetRandomItem();
+        
         newSoldier.CurrentNode = spawnNode;
 
         //I set spawnPosition's z axis to 0 because I want my soldiers to stay on top of grid so i can have priority select them before nodes.

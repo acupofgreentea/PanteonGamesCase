@@ -11,7 +11,7 @@ public class SoldierAttackController : AttackControllerBase
         return this;
     }
 
-    private bool CanAttack => Time.time > lastAttackTime + attackStatsSo.AttackRate;
+    private bool CanAttack => Time.time > lastAttackTime + AttackStatsSo.AttackRate;
     public bool HasCurrentTarget => CurrentTarget != null;
 
     protected override void HandleOnTargetDie()
@@ -28,7 +28,7 @@ public class SoldierAttackController : AttackControllerBase
         if (!CanAttack)
             return;
         
-        CurrentTarget.TakeDamage(attackStatsSo.AttackDamage);
+        CurrentTarget.TakeDamage(AttackStatsSo.AttackDamage);
         lastAttackTime = Time.time;
     }
 }

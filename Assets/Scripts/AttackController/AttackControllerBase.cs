@@ -2,7 +2,7 @@
 
 public abstract class AttackControllerBase : MonoBehaviour
 {
-    [SerializeField] protected AttackStatsSO attackStatsSo;
+    [field: SerializeField] public AttackStatsSO AttackStatsSo { get; set; }
     
     protected float lastAttackTime;
     
