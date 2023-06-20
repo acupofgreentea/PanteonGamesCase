@@ -5752,7 +5752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664fa7b576c44843ad907ad82ca2eb6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CurrentBuilding>k__BackingField: {fileID: 1737015094305512475, guid: d4c9bd4a950739649924f57c906a280a, type: 3}
+  <CurrentBuilding>k__BackingField: {fileID: 5091273662809681790, guid: 31ea50b1fece12c409e53ed0326eb140, type: 3}
 --- !u!4 &1563130320
 Transform:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         {
             T t = _pool.Pop();
             t.gameObject.SetActive(true);
-            t.transform.parent = null;
+            t.transform.SetParent(null, false);
             return t;
         }
     }
@@ -45,7 +45,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     public void ReturnToPool(T t)
     {
         t.gameObject.SetActive(false);
-        t.transform.parent = _parent;
+        t.transform.SetParent(_parent, false);
         _pool.Push(t);
     }
     
