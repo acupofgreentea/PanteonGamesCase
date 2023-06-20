@@ -25,7 +25,14 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget
 
     public void OnTargetSelected(SoldierUnit soldierUnit)
     {
-        NodeBase closestToTarget = OccupiedNodes.GetClosestToTarget(soldierUnit.transform);
+        List<NodeBase> allNeighbors = new List<NodeBase>();
+        
+        foreach (NodeBase occupiedNode in OccupiedNodes)
+        {
+            allNeighbors.AddRange(occupiedNode.Neighbors.FindAll(x=> x.IsAvailable && x.Walkable));
+        }
+
+        NodeBase closestToTarget = allNeighbors.GetClosestToTarget(soldierUnit.transform);
 
         soldierUnit.TargetNode = closestToTarget;
         soldierUnit.SoldierAttackController.SetCurrentTarget(BuildingHealth);

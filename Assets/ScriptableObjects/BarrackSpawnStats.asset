@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BarrackSpawnStats
   m_EditorClassIdentifier: 
   SpawnRate: 1
-  MaxCount: 3
+  MaxCount: 1

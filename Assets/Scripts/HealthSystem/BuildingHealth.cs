@@ -7,4 +7,11 @@
         this.buildingBase = buildingBase;
         return this;
     }
+
+    protected override void Die()
+    {
+        base.Die();
+        //todo temp
+        gameObject.SetActive(false);
+    }
 }

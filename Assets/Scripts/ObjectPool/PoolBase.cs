@@ -10,6 +10,7 @@ public class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
     private ObjectPool<T> pool;
     
     public UnityAction<T> OnReturnToPool { get; set; }
+    public UnityAction<T> OnGetFromPool { get; set; }
     
     protected virtual void Awake()
     {
@@ -18,7 +19,9 @@ public class PoolBase<T> : MonoBehaviour where T : MonoBehaviour
     
     public virtual T Get()
     {
-        return pool.Get();
+        T t = pool.Get();
+        OnGetFromPool?.Invoke(t);
+        return t;
     }
     
     public virtual void ReturnToPool(T t)

@@ -11,7 +11,7 @@ public class BuildingSoldierSpawner : MonoBehaviour
 
     private float lastSpawnTime;
 
-    private readonly List<SoldierUnit> activeSoldiers = new List<SoldierUnit>();
+    private List<SoldierUnit> activeSoldiers = new List<SoldierUnit>();
 
     private SoldierPool soldierPool;
 
@@ -64,14 +64,16 @@ public class BuildingSoldierSpawner : MonoBehaviour
     {
         UpdateSpawnPoint();
         SoldierUnit newSoldier = soldierPool.Get();
-
         activeSoldiers.Add(newSoldier);
+        
         newSoldier.CurrentNode = spawnNode;
+
+        //I set spawnPosition's z axis to 0 because I want my soldiers to stay on top of grid so i can have priority select them before nodes.
         Vector3 spawnPosition = spawnNode.transform.position;
         spawnPosition.z = 0;
-        
-        //I set spawnPosition's z axis to 0 because I want my soldiers to stay on top of grid so i can have priority select them before nodes.
         newSoldier.transform.position = spawnPosition;
+        
+        newSoldier.SoldierStateController.ChangeState(SoldierState.Idle);
     }
 
     private void UpdateSpawnPoint()
@@ -82,6 +84,7 @@ public class BuildingSoldierSpawner : MonoBehaviour
 
     private void HandleOnSoldierDie(SoldierUnit soldierUnit)
     {
+        lastSpawnTime = Time.time;
         activeSoldiers.Remove(soldierUnit);
     }
 }

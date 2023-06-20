@@ -42,6 +42,9 @@ public class SelectionManager : MonoBehaviour
         
         RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
+        if (hit.collider == null)
+            return;
+        
         if (!hit.transform.TryGetComponent(out ISoldierTarget soldierTarget))
             return;
 
@@ -49,8 +52,6 @@ public class SelectionManager : MonoBehaviour
             return;
         
         soldierTarget.OnTargetSelected(soldierUnit);
-        
-        //OnTargetNodeSelected?.Invoke(nodeBase, latestSelectable);
     }
 
     private void HandleLeftClick()

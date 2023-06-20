@@ -11,7 +11,7 @@ namespace _Scripts.Tiles
         public NodeStateController NodeStateController { get; private set; }
         public NodeSpriteController NodeSpriteController { get; private set; }
 
-        
+
         private void Awake()
         {
             NodeStateController = GetComponent<NodeStateController>().Init(this);
@@ -30,18 +30,35 @@ namespace _Scripts.Tiles
 
         public float GetDistance(NodeBase other) =>
             Coords.GetDistance(other.Coords); // Helper to reduce noise in pathfinding
-        
+
         public virtual void SetCoords(ICoords coords)
         {
             Coords = coords;
             transform.position = Coords.Pos;
         }
-        
+
         public void HandleOnSelected()
         {
             NodeStateController.HandleOnNodeSelected();
         }
-        
+
+        public NodeBase GetAvailableClosestToTargetNeighbor(Transform target)
+        {
+            NodeBase availableNeighbor = Neighbors.FindAll(x => x.IsAvailable && x.Walkable).GetClosestToTarget(target);
+
+            if (availableNeighbor != null)
+                return availableNeighbor;
+
+            List<NodeBase> neighborsNeighbors = new List<NodeBase>();
+
+            foreach (NodeBase neighbor in Neighbors)
+            {
+                neighborsNeighbors.AddRange(neighbor.Neighbors.FindAll(x => x.IsAvailable && x.Walkable));
+            }
+
+            return neighborsNeighbors.GetClosestToTarget(target);
+        }
+
         public void OnTargetSelected(SoldierUnit soldierUnit)
         {
             soldierUnit.TargetNode = this;
@@ -63,6 +80,7 @@ namespace _Scripts.Tiles
         {
             Connection = nodeBase;
         }
+
         public void SetG(float g)
         {
             G = g;
@@ -74,7 +92,6 @@ namespace _Scripts.Tiles
         }
 
         #endregion
-
     }
 }
 
