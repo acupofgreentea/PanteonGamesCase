@@ -17,12 +17,12 @@ public class BuildingInfoUI : MonoBehaviour
         SetActivePanel(false);
         Transform selectable = SelectionManager.Instance.LastSelected;
 
-        if (!selectable.TryGetComponent(out BuildingBase buildingBase))
+        if (!selectable.TryGetComponent(out IInformationDisplayer informationDisplayer))
             return;
         
         SetActivePanel(true);
-        buildingNameText.text = buildingBase.PlaceableSo.PlaceableName;
-        buildingImage.sprite = buildingBase.PlaceableSo.PlaceableSpriteUI;
+        buildingNameText.text = informationDisplayer.InformationMenuInfoSo.Name;
+        buildingImage.sprite = informationDisplayer.InformationMenuInfoSo.Sprite;
         buildingImage.SetNativeSize();
     }
 

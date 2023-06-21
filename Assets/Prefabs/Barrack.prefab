@@ -132,9 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5b8da288d947d3a32423acc3f2f2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
+  <InformationMenuInfoSo>k__BackingField: {fileID: 11400000, guid: c40fe1edf8b3a304d821cf457bf70cef, type: 2}
   <PlaceableSo>k__BackingField: {fileID: 11400000, guid: 1cbfce9e5c288264aad8ada900bfe2ff, type: 2}
   buildingVisual: {fileID: 5091273661217346656}
-  selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
   <BuildingProductionUISO>k__BackingField: {fileID: 11400000, guid: 4580a89cd9c734a4fae1b1aabc52b41b, type: 2}
 --- !u!114 &7804842479239098087
 MonoBehaviour:

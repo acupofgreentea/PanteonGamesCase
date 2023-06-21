@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
+  <InformationMenuInfoSo>k__BackingField: {fileID: 11400000, guid: fd76565c796f10c45ba9fbad7afc0dd8, type: 2}
   <PlaceableSo>k__BackingField: {fileID: 11400000, guid: 32ac40b9d21bd7941933579c60186774, type: 2}
   buildingVisual: {fileID: 4402027526486868377}
 --- !u!114 &-5540902564928088793

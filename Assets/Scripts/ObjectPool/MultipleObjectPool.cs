@@ -31,7 +31,9 @@ public class MultipleObjectPool<T> where T : MonoBehaviour
     
     public T Get(T type)
     {
-        if (_pool.Count == 0 || !_prefabs.Contains(type))
+        var t1 = _pool.Find(x => type.GetType() == x.GetType());
+        
+        if (_pool.Count == 0 || t1 == null)
         {
             int index = _prefabs.IndexOf(type);
             T t = GameObject.Instantiate(_prefabs[index]);
@@ -39,11 +41,10 @@ public class MultipleObjectPool<T> where T : MonoBehaviour
         }
         else
         {
-            T t = _pool.Find(x => type.GetType() == x.GetType());
-            _pool.Remove(t);
-            t.gameObject.SetActive(true);
-            t.transform.parent = null;
-            return t;
+            _pool.Remove(t1);
+            t1.gameObject.SetActive(true);
+            t1.transform.parent = null;
+            return t1;
         }
     }
     

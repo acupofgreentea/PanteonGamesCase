@@ -1,11 +1,18 @@
-﻿using UnityEngine;
-
+﻿
 public class BuildingPool : MultiplePoolBase<BuildingBase>
 {
-    [ContextMenu("Get")]
-    public void Get()
+    public static BuildingPool Instance { get; private set; }
+
+    protected override void Awake()
     {
-        Get(BuildManager.Instance.CurrentBuilding);
+        if(Instance)
+        {
+            Destroy(this);
+            return;
+        }
+        
+        Instance = this;
+        
+        base.Awake();
     }
-    
 }

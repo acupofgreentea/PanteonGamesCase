@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 5320038171202644471}
   selectableSelectedEvent: {fileID: 11400000, guid: b2c34ebfdfb57204bb2af0d3470cb0c0, type: 2}
+  <InformationMenuInfoSo>k__BackingField: {fileID: 11400000, guid: e20807c6d174c1f47a860691a494b1d6, type: 2}
   <CurrentNode>k__BackingField: {fileID: 0}
   <TargetNode>k__BackingField: {fileID: 0}
 --- !u!114 &5320038172407524519
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3732c5f5af6d471b9e8921afc084ab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStatsSo: {fileID: 11400000, guid: f9995cf0262d0e946950b96fef719776, type: 2}
+  <AttackStatsSo>k__BackingField: {fileID: 0}
 --- !u!61 &1260186336
 BoxCollider2D:
   m_ObjectHideFlags: 0

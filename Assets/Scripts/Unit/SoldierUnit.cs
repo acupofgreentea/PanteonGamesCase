@@ -2,9 +2,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class SoldierUnit : UnitBase, ISelectable
+public class SoldierUnit : UnitBase, ISelectable, IInformationDisplayer
 {
     [SerializeField] private GameEvent selectableSelectedEvent;
+    [field: SerializeField] public InformationMenuInfoSO InformationMenuInfoSo { get; private set; }
     [field: SerializeField] public NodeBase CurrentNode { get; set; }
     [field: SerializeField] public NodeBase TargetNode { get; set; }
     public SoldierStateController SoldierStateController { get; private set; }

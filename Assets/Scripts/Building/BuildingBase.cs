@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using _Scripts.Tiles;
 using UnityEngine;
 
-public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
+public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable, IInformationDisplayer
 {
     [SerializeField] private GameEvent selectableSelectedEvent;
+    [field: SerializeField] public InformationMenuInfoSO InformationMenuInfoSo { get; private set; }
     [field: SerializeField] public PlaceableSo PlaceableSo { get; private set; }
 
     [SerializeField] private SpriteRenderer buildingVisual;
@@ -22,6 +23,20 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
     protected virtual void Start()
     {
         buildingVisual.sprite = PlaceableSo.PlaceableSprite;
+        BuildingHealth.OnDie += HandleOnDie;
+    }
+
+    private void HandleOnDie()
+    {
+        Debug.LogError("handle on die");
+        foreach (NodeBase occupiedNode in OccupiedNodes)
+        {
+            occupiedNode.IsAvailable = true;
+            occupiedNode.Walkable = true;
+            occupiedNode.NodeStateController.ChangeState(NodeState.Empty);
+        }
+        
+        OccupiedNodes.Clear();
     }
 
     public void OnTargetSelected(SoldierUnit soldierUnit)
@@ -38,8 +53,14 @@ public abstract class BuildingBase : MonoBehaviour, ISoldierTarget, ISelectable
         soldierUnit.SoldierStateController.ChangeState(SoldierState.MoveToTarget);
     }
 
+    private void OnDestroy()
+    {
+        BuildingHealth.OnDie -= HandleOnDie;
+    }
+
     public void HandleOnSelected()
     {        
         selectableSelectedEvent.Raise();
     }
+
 }

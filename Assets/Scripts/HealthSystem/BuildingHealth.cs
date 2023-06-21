@@ -11,7 +11,6 @@
     protected override void Die()
     {
         base.Die();
-        //todo temp
-        gameObject.SetActive(false);
+        this.DelayMethod(()=>BuildingPool.Instance.ReturnToPool(buildingBase));
     }
 }

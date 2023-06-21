@@ -33,8 +33,8 @@ public class BuildManager : MonoBehaviour
         }
 
         OnBuilt?.Invoke();
-        
-        var build = Instantiate(CurrentBuilding);
+
+        var build = BuildingPool.Instance.Get(CurrentBuilding);
         
         List<NodeBase> otherNodes = GridManager.Instance.GetNodesAtDirections(nodeBase, nodeBase.GetDirectionByDimension(CurrentBuilding.Dimension));
         build.OccupiedNodes = otherNodes;
@@ -50,11 +50,15 @@ public class BuildManager : MonoBehaviour
 
     private IEnumerator BuildFailSequence(NodeBase nodeBase)
     {
-        if(CurrentBuilding == null)
+        if (CurrentBuilding == null)
+        {
+            Debug.LogError("current building null");
             yield break;
+        }
         
         List<NodeBase> otherNodes = GridManager.Instance.GetNodesAtDirections(nodeBase, nodeBase.GetDirectionByDimension(CurrentBuilding.Dimension));
 
+        Debug.LogError(otherNodes.Count);
         foreach (NodeBase otherNode in otherNodes)
             otherNode.NodeSpriteController.ChangeNodeColor(Color.red, 0.5f);
 
