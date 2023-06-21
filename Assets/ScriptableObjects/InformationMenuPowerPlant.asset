@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: InformationMenuPowerPlant
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Power Plant
-  <Sprite>k__BackingField: {fileID: 21300000, guid: ce096a74e55230046acdb1aa9be9b58a, type: 3}
+  spriteAtlas: {fileID: 4343727234628468602, guid: 89d3e5e388abdc44980d0cf332417863, type: 2}
+  spriteName: PowerPlantIconUI

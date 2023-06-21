@@ -17,6 +17,8 @@ public class SoldierUnit : UnitBase, ISelectable, IInformationDisplayer
         SoldierStateController = GetComponent<SoldierStateController>().Init(this);
         SoldierAttackController = GetComponent<SoldierAttackController>().Init(this);
         SoldierHealth = GetComponent<SoldierHealth>().Init(this);
+        
+        Init(InformationMenuInfoSo.Sprite);
     }
 
     private void Start()
