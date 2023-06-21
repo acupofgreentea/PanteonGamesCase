@@ -14,6 +14,9 @@ public class EmptyNodeState : NodeStateBase
     private bool IsAbleToBuild()
     {
         var currentBuilding = BuildManager.Instance.CurrentBuilding;
+        
+        if(currentBuilding == null)
+            return false;
 
         Vector2[] directions = nodeBase.GetDirectionByDimension(currentBuilding.Dimension);
 

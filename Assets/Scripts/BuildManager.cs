@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class BuildManager : MonoBehaviour
 {
-    [field: SerializeField] public BuildingBase CurrentBuilding { get; private set; }
+    [field: SerializeField] public BuildingBase CurrentBuilding { get; set; }
     
     public static BuildManager Instance { get; private set; }
     
@@ -50,6 +50,9 @@ public class BuildManager : MonoBehaviour
 
     private IEnumerator BuildFailSequence(NodeBase nodeBase)
     {
+        if(CurrentBuilding == null)
+            yield break;
+        
         List<NodeBase> otherNodes = GridManager.Instance.GetNodesAtDirections(nodeBase, nodeBase.GetDirectionByDimension(CurrentBuilding.Dimension));
 
         foreach (NodeBase otherNode in otherNodes)
