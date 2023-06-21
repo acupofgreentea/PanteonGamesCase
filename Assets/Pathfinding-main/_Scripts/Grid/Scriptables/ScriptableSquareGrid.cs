@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using System.Collections.Generic;
 using _Scripts.Tiles;
 using UnityEditor;
@@ -35,3 +37,4 @@ namespace Tarodev_Pathfinding._Scripts.Grid.Scriptables
         }
     }
 }
+#endif
